@@ -33,6 +33,20 @@ int main()
     Animal a2(10, 20);                   // Создание объектов класса
     Animal a3(a2);
     }
+    
+    {
+        Animal *a = new Animal;
+        Animal *a2 = new Animal(10, 20);
+        Animal* a3 = new Animal(*a2);
+
+        delete a;
+        delete a2;
+        delete a3;
+    }
+
+
+
+
  
 }
 
