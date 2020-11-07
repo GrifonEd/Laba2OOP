@@ -38,6 +38,33 @@ void Animal::recreation() {
     age = age - 1;
     character = character + 1;
 }
+class Birds : public Animal { //Создание класса наследника
+protected :
+    int SizeWings;                        //Создание атрибутов наследования 
+public:
+    Birds(): Animal() {                        // Создание Конструктора без параметров 
+        printf("Birds()\n");
+        SizeWings = 0;
+    }
+    Birds(int size, int age,int SizeWings) : Animal(size,age) {            // Создание Конструктора с параметрами
+        printf("Birds(int size, int age,int SizeWings)\n");
+        this->SizeWings = SizeWings;
+    }
+    Birds(const Birds& a) {                  // Создание Конструктора копирования
+        printf("Birds(const Birds& a)\n");
+        size = a.size;
+        age = a.age;
+        SizeWings = a.SizeWings;
+    }
+    ~Birds() {                      // Создание деструктора
+        printf("%d, %d, %d\n", size, age, SizeWings);
+        printf("~Birds()\n");
+    }
+    void train_fly(int new_SizeWings) { 
+        SizeWings = new_SizeWings;
+    }
+
+};
 int main()
 {
     setlocale(LC_CTYPE, "Russian");
@@ -73,7 +100,11 @@ int main()
     }
     system("pause");
     system("cls");
-
+    {
+        printf("Работа с наследованием\n");   // Создание объекта потомка
+        Birds* a = new Birds(10, 20, 15);
+        delete a;
+    }
 
  
 }
