@@ -23,7 +23,7 @@ public :
         size = a.size;
         age = a.age;
     }
-    ~Animal() {                      // Создание деструктора
+     ~Animal() {                      // Создание деструктора
         printf("%d, %d, %d\n",size, age, character);
         printf("~Animal()\n");
     }
@@ -60,11 +60,49 @@ public:
         printf("%d, %d, %d\n", size, age, SizeWings);
         printf("~Birds()\n");
     }
-    void train_fly(int new_SizeWings) { 
+     void train_fly(int new_SizeWings) { 
         SizeWings = new_SizeWings;
     }
 
 };
+
+class Zoo { //Создание класса для композиции
+protected:
+    Animal ani1;
+    Animal ani2;
+public:
+    int size, age;           //Создание атрибутов(публичных)
+    Zoo() {                        // Создание Конструктора без параметров 
+        printf("Zoo()\n");
+        size = 0;
+        age = 0;
+    }
+    Zoo(int size, int age) {            // Создание Конструктора с параметрами
+        printf("Zoo()\n");
+        this->size = size;
+        this->age = age;
+    }
+    Zoo(const Animal& a) {                  // Создание Конструктора копирования
+        printf("Zoo()\n");
+        size = a.size;
+        age = a.age;
+    }
+    ~Zoo() {                      // Создание деструктора
+        printf("%d, %d, %d\n", size, age, character);
+        printf("~Zoo()\n");
+    }
+    void train(int time, int strength) {
+        size = size + time * strength;
+        age = age + time * strength;
+    }
+    void recreation();
+};
+
+
+
+
+
+
 int main()
 {
     setlocale(LC_CTYPE, "Russian");
@@ -105,6 +143,22 @@ int main()
         Birds* a = new Birds(10, 20, 15);
         delete a;
     }
+    system("pause");
+    system("cls");
+    {
+        printf("Работа с помещением потомка в переменную предка\n");
+        Animal* a = new Birds(10, 20, 15);   // Не вызывается деструктор Animal
+        delete a;          // Но если добавить к соответствующему деструктору "virtual" Будет работать коретно
+        Birds* a2 = new Birds(50, 100, 30);
+        delete a2;
+    }
+    system("pause");
+    system("cls");
+    {
+
+    }
+
+
 
  
 }
