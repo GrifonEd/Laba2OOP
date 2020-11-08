@@ -68,40 +68,34 @@ public:
 
 class Zoo { //Создание класса для композиции
 protected:
-    Animal ani1;
-    Animal ani2;
-public:
-    int size, age;           //Создание атрибутов(публичных)
-    Zoo() {                        // Создание Конструктора без параметров 
+    Animal *ani1;                    //Атрибут который является объектом
+    Animal *ani2;
+public:      
+    Zoo() {                        // Создание Конструктора без параметров c 
         printf("Zoo()\n");
-        size = 0;
-        age = 0;
+        ani1 = new Animal;
+        ani2 = new Animal;
     }
-    Zoo(int size, int age) {            // Создание Конструктора с параметрами
-        printf("Zoo()\n");
-        this->size = size;
-        this->age = age;
+    Zoo(int size1,int age1, int size2, int age2) {                  // Создание Конструктора копирования
+        printf("Zoo(int size1,int age1, int size2, int age2)\n");
+        ani1 = new Animal(size1,age1);
+        ani2 = new Animal(size2,age2);
+
     }
-    Zoo(const Animal& a) {                  // Создание Конструктора копирования
-        printf("Zoo()\n");
-        size = a.size;
-        age = a.age;
+    Zoo(const Zoo& a) {                  // Создание Конструктора копирования
+        printf("Zoo(const Zoo& a)\n");
+        ani1 = new Animal(*(a.ani1));
+        ani2 = new Animal(*(a.ani2));
+
     }
     ~Zoo() {                      // Создание деструктора
-        printf("%d, %d, %d\n", size, age, character);
+        
+            delete ani1;
+        delete ani2;
         printf("~Zoo()\n");
     }
-    void train(int time, int strength) {
-        size = size + time * strength;
-        age = age + time * strength;
-    }
-    void recreation();
+   
 };
-
-
-
-
-
 
 int main()
 {
@@ -155,12 +149,14 @@ int main()
     system("pause");
     system("cls");
     {
-
+        printf("Работа с композицией\n");
+        Zoo* a1 = new Zoo; 
+        Zoo* a3 = new Zoo(10, 20, 30, 40);
+        Zoo* a2 = new Zoo(*a1);
+        delete a1;
+        delete a3;
+        delete a2;
     }
-
-
-
- 
+    system("pause");
+    system("cls");
 }
-
-
